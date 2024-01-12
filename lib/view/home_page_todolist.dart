@@ -59,8 +59,9 @@ class _TodoListViewState extends State<TodoListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List MVC'),
-        backgroundColor: const Color.fromARGB(255, 31, 153, 80),
+        title: const Text('Todo List MVC', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 98, 102, 100),
       ),
       body: ValueListenableBuilder(
         valueListenable: _controller,
@@ -69,33 +70,56 @@ class _TodoListViewState extends State<TodoListView> {
             itemCount: todoList.length,
             itemBuilder: (context, index) {
               final item = todoList[index];
-              return CheckboxListTile(
-                title: Text(item.title,
+              // Envolve o CheckboxListTile com um Dismissible
+              return Dismissible(
+                key: UniqueKey(), // Garante que a chave seja única para cada item
+                direction: DismissDirection.endToStart, // Arrastar para a esquerda para excluir
+                onDismissed: (direction) {
+                  // Chama o método para remover o item quando ele é arrastado para fora
+                  _controller.removeTodoItem(index);
+                  // Mostra um snackbar (opcional)
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Item "${item.title}" deleted')),
+                  );
+                },
+                background: Container(
+                  color: Colors.red,
+                  alignment: Alignment.centerRight,
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: const Icon(Icons.delete, color: Colors.white),
+                ),
+                child: CheckboxListTile(
+                  title: Text(
+                    item.title,
                     style: TextStyle(
                       decoration: item.isDone ? TextDecoration.lineThrough : null,
-                    )),
-                subtitle: Text(item.description),
-                value: item.isDone,
-                onChanged: (bool? newValue) {
-                  _controller.toggleTodoItem(index);
-                },
-                secondary: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        print('Edit icon tapped for index $index');
-                        _showEditTodoDialog(index);
-                      },
-                      child: const Icon(Icons.edit),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        _controller.removeTodoItem(index);
-                      },
-                      child: const Icon(Icons.delete),
-                    ),
-                  ],
+                  ),
+                  subtitle: Text(item.description),
+                  value: item.isDone,
+                  onChanged: (bool? newValue) {
+                    _controller.toggleTodoItem(index);
+                  },
+                  secondary: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          // Implementação existente para editar um item
+                          print('Edit icon tapped for index $index');
+                          _showEditTodoDialog(index);
+                        },
+                        child: const Icon(Icons.edit),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Implementação existente para remover um item
+                          _controller.removeTodoItem(index);
+                        },
+                        child: const Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -103,7 +127,7 @@ class _TodoListViewState extends State<TodoListView> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTodoDialog,
+        onPressed: _showAddTodoDialog, // Implementação existente para adicionar um item
         tooltip: 'Add Item',
         child: const Icon(Icons.add),
       ),
