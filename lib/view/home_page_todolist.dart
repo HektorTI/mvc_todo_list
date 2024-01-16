@@ -59,7 +59,14 @@ class _TodoListViewState extends State<TodoListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo List MVC', style: TextStyle(color: Colors.white)),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12.0),
+          child: Image.asset('assets/images/splash_image.png'),
+        ),
+        title: const Text(
+          'Todo List MVC',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 98, 102, 100),
       ),
