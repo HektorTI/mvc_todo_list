@@ -1,19 +1,21 @@
+import 'package:mvc_todo_list/Login/controller/auth_controller.dart';
+import 'package:mvc_todo_list/Login/view/auth_screen.dart';
+import 'package:mvc_todo_list/home/view/home_page_todolist.dart';
+import 'package:mvc_todo_list/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:mvc_todo_list/view/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(),
-      debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-    );
-  }
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AuthController(),
+      child: MaterialApp(
+        home: const SplashScreen(),
+        routes: {
+          '/auth': (context) => const AuthScreen(),
+          '/todo': (context) => const TodoListView(),
+        },
+      ),
+    ),
+  );
 }

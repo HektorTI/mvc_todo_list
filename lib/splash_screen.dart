@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mvc_todo_list/view/home_page_todolist.dart';
+import 'package:mvc_todo_list/Login/view/auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 5),
       () => Navigator.of(context).pushReplacement(
         // Navega para a tela principal após a duração
-        MaterialPageRoute(builder: (context) => const TodoListView()),
+        MaterialPageRoute(builder: (context) => const AuthScreen()),
       ),
     );
   }

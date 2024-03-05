@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:mvc_todo_list/controller/controller_todolist.dart';
-import 'package:mvc_todo_list/model/models_todolist.dart';
+import 'package:mvc_todo_list/home/controller/controller_todolist.dart';
+import 'package:mvc_todo_list/home/model/models_todolist.dart';
 
 class TodoListView extends StatefulWidget {
   const TodoListView({super.key});

@@ -1,6 +1,6 @@
 // Controller
 import 'package:flutter/material.dart';
-import 'package:mvc_todo_list/model/models_todolist.dart';
+import 'package:mvc_todo_list/home/model/models_todolist.dart';
 
 class TodoController extends ValueNotifier<List<TodoItem>> {
   TodoController() : super([]);
